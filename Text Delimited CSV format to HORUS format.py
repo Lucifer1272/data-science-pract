@@ -1,30 +1,22 @@
-import pandas as pd
-# Input Agreement ===========================================
-print('NAME: Farhaan Dodhia ')
-print('SAP ID:53004230003')
-sInputFileName='C:/Users/user/OneDrive/Desktop/1_UPG_MSCIT_PART1/Data_Science_Practical/Country_code.csv'
-InputData=pd.read_csv(sInputFileName,encoding="latin-1")
-print('Input Data Values ===================================')
-print(InputData)
-print('=====================================================')
-# Processing Rules ===========================================
-ProcessData=InputData
-# Remove columns ISO-2-Code and ISO-3-CODE
-ProcessData.drop('ISO-2-CODE', axis=1,inplace=True)
-ProcessData.drop('ISO-3-Code', axis=1,inplace=True)
-# Rename Country and ISO-M49
-ProcessData.rename(columns={'Country': 'CountryName'}, inplace=True)
-ProcessData.rename(columns={'ISO-M49': 'CountryNumber'}, inplace=True)
-# Set new Index
-ProcessData.set_index('CountryName', inplace=True)
-# Sort data by CurrencyNumber
-ProcessData.sort_values('CountryName', axis=0, ascending=False,
-inplace=True)
-print('Process Data Values =================================')
-print(ProcessData)
-print('=====================================================')
-# Output Agreement ===========================================
-OutputData=ProcessData
-sOutputFileName='C:/Users/user/OneDrive/Desktop/1_UPG_MSCIT_PART1/Data_Science_Practical/HorusToCsv.csv'
-OutputData.to_csv(sOutputFileName, index = False)
-print('CSV to HORUS - Done')
+import numpy as np
+x1 = np.array([1,-1,-1,1,-1,-1,1,1,1,1])
+x2 = np.array([1,-1,1,1,-1,1,1,1,1,1])
+y = np.array([1,-1]) 
+b = 0
+wtold = np.zeros((9,)).astype(int) 
+wtnew = np.zeros((9,)).astype(int) 
+print("--",wtold)
+print("First input with target 1") 
+for i in range(0,9):
+    wtnew[i] = wtold[i] + x1[i]*y[0] 
+wtold = wtnew
+b = b + y[0]
+ 
+print("New Weights:",wtnew) 
+print("Bias Value:",b) 
+print("Second input with target -1") 
+for i in range(0,9):
+    wtnew[i] = wtold[i] + x2[i]*y[1] 
+b = b + y[1]
+print("New Weights:",wtnew) 
+print("Bias Value:",b)
